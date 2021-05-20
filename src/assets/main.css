@@ -1,0 +1,96 @@
+/* custom font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap');
+
+/* variables */
+:root {
+  --primary: #4f515a;
+  --secondary: #ebebeb;
+  --warning: #da0f41;
+}
+
+/* base styles  */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+  color: var(--primary);
+  box-sizing: border-box;
+}
+body {
+  background: #fafafa;
+}
+a {
+  text-decoration: none;
+}
+
+/* forms */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 1px 2px 3px rgba(50, 50, 50, 0.05);
+  border: 1px solid var(--secondary);
+  background: white;
+}
+input,
+textarea {
+  border: 0;
+  border-bottom: 1px solid var(--secondary);
+  padding: 10px;
+  outline: none;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: normal;
+  display: inline;
+  margin: 0 0 0 8px;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  display: inline;
+  width: auto;
+  margin: 0;
+  border: none;
+}
+
+/* error text */
+.error {
+  color: var(--warning);
+  font-size: 14px;
+  margin: 16px 0;
+}
+
+.card {
+  /* max-width: 40rem; */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 24px;
+  margin: 24px auto;
+}
+
+.fa-lg {
+  color: red;
+}
+
+/* hover style */
+.hover-bold {
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-bold:hover {
+  font-weight: bold;
+}
+
+.grow {
+  transition: scale ease 0.2s;
+}
+.grow:hover {
+  transform: scale(1.05);
+}
