@@ -7,14 +7,14 @@
       </div>
       <div class="links">
         <div v-if="user">
-          <router-link to="/register" class="hover-bold">
+          <router-link to="/register" class="hover-bold" v-if="!isBuddy">
             Register as Buddy
           </router-link>
-          <router-link to="/account">
-            <font-awesome-icon icon="user-circle" size="lg" />
+          <router-link to="/account" v-else>
+            <font-awesome-icon icon="user-circle" size="lg" class="grow" />
           </router-link>
           <router-link to="/chatroom">
-            <font-awesome-icon icon="comments" size="lg" />
+            <font-awesome-icon icon="comments" size="lg" class="grow" />
           </router-link>
           <base-button @click="handleLogout" mode="alert">Logout</base-button>
         </div>
@@ -29,34 +29,30 @@
 
 <script>
 import { useRouter } from 'vue-router'
-// import { computed } from '@vue/runtime-core'
+import { computed } from '@vue/runtime-core'
 import useLogout from '@/composables/useLogout'
 import getUser from '@/composables/getUser'
-// import getCollection from '@/composables/getCollection'
+import getCollection from '@/composables/getCollection'
 
 export default {
   setup() {
     const router = useRouter()
     const { logout } = useLogout()
     const { user } = getUser()
-    // const { documents: buddies } = getCollection('buddies')
+    const { documents: buddies } = getCollection('buddies')
 
     const handleLogout = async () => {
       await logout()
       router.replace('/login')
     }
 
-    // const isBuddy = computed(() => {
-    //   if (buddies.value && user.value) {
-    //     buddies.value.filter((bud) => {
-    //       bud.userId === user.value.uid
-    //     })
-    //   }
-    // })
+    const isBuddy = computed(() => {
+      if (buddies.value) {
+        return buddies.value.some((bud) => bud.userId === user.value.uid)
+      }
+    })
 
-    // console.log(isBuddy)
-
-    return { handleLogout, user }
+    return { handleLogout, user, isBuddy }
   },
 }
 </script>

@@ -17,7 +17,7 @@
           icon="times-circle"
           size="lg"
           @click="handleDelete(req.id)"
-          class="delete"
+          class="delete grow"
         />
       </li>
     </ul>
@@ -85,6 +85,7 @@ p {
 }
 
 .delete {
+  color: #ff7f7f;
   cursor: pointer;
 }
 </style>

@@ -5,7 +5,7 @@
 :root {
   --primary: #4f515a;
   --secondary: #ebebeb;
-  --warning: #da0f41;
+  --warning: #ff7f7f;
 }
 
 /* base styles  */
@@ -16,11 +16,26 @@
   color: var(--primary);
   box-sizing: border-box;
 }
+
 body {
   background: #fafafa;
 }
 a {
   text-decoration: none;
+}
+
+.card {
+  /* max-width: 40rem; */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 24px;
+  margin: 24px auto;
+}
+
+/* font-awesome */
+.fa-lg {
+  font-size: 28px;
+  margin-right: 10px;
 }
 
 /* forms */
@@ -67,18 +82,6 @@ input[type='radio'] {
   margin: 16px 0;
 }
 
-.card {
-  /* max-width: 40rem; */
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  padding: 24px;
-  margin: 24px auto;
-}
-
-.fa-lg {
-  color: red;
-}
-
 /* hover style */
 .hover-bold {
   transition: all 0.2s ease-in-out;
@@ -89,8 +92,9 @@ input[type='radio'] {
 }
 
 .grow {
-  transition: scale ease 0.2s;
+  transition: all ease 0.2s;
 }
 .grow:hover {
   transform: scale(1.05);
+  opacity: 0.8;
 }
