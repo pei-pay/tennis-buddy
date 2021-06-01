@@ -1,5 +1,5 @@
 import { ref } from '@vue/reactivity'
-import { projectAuth } from '../firebase/config'
+import { projectAuth } from '../../firebase/config'
 
 const error = ref(null)
 const isPending = ref(false)

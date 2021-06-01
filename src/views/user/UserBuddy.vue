@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import getUser from '@/composables/getUser'
-import getCollection from '@/composables/getCollection'
+import getUser from '@/composables/auth/getUser'
+import getCollection from '@/composables/firestore/getCollection'
 import RequestsReceived from '@/components/requests/RequestsReceived'
 
 export default {

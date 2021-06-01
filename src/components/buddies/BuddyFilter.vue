@@ -13,7 +13,7 @@
     <section>
       <h3>Level of player</h3>
       <div v-for="level in levelLists" :key="level" class="filter-option">
-        <input type="checkbox" :id="level" />
+        <input type="checkbox" :id="level" @change="setLevelFilter" />
         <label :for="level">{{ level }}</label>
       </div>
     </section>
@@ -25,6 +25,7 @@ export default {
   setup(_, context) {
     const timeLists = ['morning', 'evening', 'night']
     const levelLists = ['beginner', 'intermediate', 'advanced']
+
     let timeChecked = {
       morning: false,
       evening: false,
@@ -42,7 +43,25 @@ export default {
       context.emit('change-time-filter', updatedTimeChecked)
     }
 
-    return { timeLists, levelLists, setTimeFilter }
+    let levelChecked = {
+      morning: false,
+      evening: false,
+      night: false,
+    }
+
+    const setLevelFilter = (event) => {
+      const inputId = event.target.id
+      const isActive = event.target.checked
+      let updatedLevelChecked = {
+        ...levelChecked,
+        [inputId]: isActive,
+      }
+      // console.log(updatedTimeChecked)
+      levelChecked = updatedLevelChecked
+      context.emit('change-level-filter', updatedLevelChecked)
+    }
+
+    return { timeLists, levelLists, setTimeFilter, setLevelFilter }
   },
 }
 </script>

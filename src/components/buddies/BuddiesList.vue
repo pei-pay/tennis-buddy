@@ -22,7 +22,7 @@
 
 <script>
 import { computed } from '@vue/runtime-core'
-import getUser from '@/composables/getUser'
+import getUser from '@/composables/auth/getUser'
 export default {
   props: ['buddies'],
   setup(props) {

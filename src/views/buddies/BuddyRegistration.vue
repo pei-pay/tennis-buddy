@@ -70,8 +70,8 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import useCollection from '@/composables/useCollection'
-import getUser from '@/composables/getUser'
+import useCollection from '@/composables/firestore/useCollection'
+import getUser from '@/composables/auth/getUser'
 import { timestamp } from '@/firebase/config'
 
 export default {
@@ -94,7 +94,7 @@ export default {
         createdAt: timestamp(),
       })
       if (!error.value) {
-        router.push({ name: 'BuddyDetails', params: { id: res.id } })
+        router.push({ name: 'UserBuddy' })
       }
     }
 

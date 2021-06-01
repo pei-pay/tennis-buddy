@@ -21,7 +21,7 @@
 import { ref } from '@vue/reactivity'
 import { useRouter } from 'vue-router'
 import { timestamp } from '@/firebase/config'
-import useCollection from '@/composables/useCollection'
+import useCollection from '@/composables/firestore/useCollection'
 export default {
   props: ['buddyUserId'],
   setup(props) {

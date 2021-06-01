@@ -1,5 +1,5 @@
 import { ref, watchEffect } from 'vue'
-import { projectFirestore } from '../firebase/config'
+import { projectFirestore } from '../../firebase/config'
 
 const getDocument = (collection, id) => {
   const document = ref(null)
@@ -22,7 +22,6 @@ const getDocument = (collection, id) => {
     }
   )
   watchEffect((onInvalidate) => {
-    //unsub from prev collection when watcher is stopped(component unmounted)
     onInvalidate(() => unsub())
   })
 

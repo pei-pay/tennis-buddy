@@ -10,10 +10,15 @@
           <router-link to="/register" class="hover-bold" v-if="!isBuddy">
             Register as Buddy
           </router-link>
-          <router-link to="/account" v-else>
+          <router-link
+            to="/account"
+            v-else
+            class="tooltip"
+            data-tooltip="Account"
+          >
             <font-awesome-icon icon="user-circle" size="lg" class="grow" />
           </router-link>
-          <router-link to="/chatroom">
+          <router-link to="/chatroom" class="tooltip" data-tooltip="Chatroom">
             <font-awesome-icon icon="comments" size="lg" class="grow" />
           </router-link>
           <base-button @click="handleLogout" mode="alert">Logout</base-button>
@@ -30,9 +35,9 @@
 <script>
 import { useRouter } from 'vue-router'
 import { computed } from '@vue/runtime-core'
-import useLogout from '@/composables/useLogout'
-import getUser from '@/composables/getUser'
-import getCollection from '@/composables/getCollection'
+import useLogout from '@/composables/auth/useLogout'
+import getUser from '@/composables/auth/getUser'
+import getCollection from '@/composables/firestore/getCollection'
 
 export default {
   setup() {

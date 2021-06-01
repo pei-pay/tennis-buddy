@@ -12,8 +12,8 @@
 <script>
 import { ref } from '@vue/reactivity'
 import { timestamp } from '@/firebase/config'
-import getUser from '@/composables/getUser'
-import useCollection from '@/composables/useCollection'
+import getUser from '@/composables/auth/getUser'
+import useCollection from '@/composables/firestore/useCollection'
 
 export default {
   setup() {

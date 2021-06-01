@@ -13,12 +13,14 @@
           <a :href="'mailto:' + req.email">{{ req.email }}</a>
           <p>{{ req.message }}</p>
         </div>
-        <font-awesome-icon
-          icon="times-circle"
-          size="lg"
-          @click="handleDelete(req.id)"
-          class="delete grow"
-        />
+        <div class="tooltip" data-tooltip="delete">
+          <font-awesome-icon
+            icon="times-circle"
+            size="lg"
+            @click="handleDelete(req.id)"
+            class="grow"
+          />
+        </div>
       </li>
     </ul>
   </div>
@@ -26,8 +28,8 @@
 
 <script>
 import { computed } from '@vue/runtime-core'
-import getCollection from '@/composables/getCollection'
-import useDocument from '@/composables/useDocument'
+import getCollection from '@/composables/firestore/getCollection'
+import useDocument from '@/composables/firestore/useDocument'
 
 export default {
   props: ['userId'],
@@ -84,8 +86,7 @@ p {
   margin: 0.5rem 0 0 0;
 }
 
-.delete {
-  color: #ff7f7f;
-  cursor: pointer;
+.tooltip::after {
+  background: #ff7f7f;
 }
 </style>

@@ -8,7 +8,13 @@
       v-model="displayName"
     />
     <input type="email" required placeholder="Email" v-model="email" />
-    <input type="password" required placeholder="Password" v-model="password" />
+    <input
+      type="password"
+      required
+      placeholder="Password"
+      v-model="password"
+      autocomplete="on"
+    />
     <div v-if="error" class="error">{{ error }}</div>
     <base-button v-if="!isPending">Sign up</base-button>
     <base-button v-else disabled>Loading</base-button>
@@ -17,7 +23,7 @@
 
 <script>
 import { ref } from 'vue'
-import useSignup from '@/composables/useSignup'
+import useSignup from '@/composables/auth/useSignup'
 import { useRouter } from 'vue-router'
 
 export default {

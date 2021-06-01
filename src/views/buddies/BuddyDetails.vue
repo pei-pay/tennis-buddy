@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import getDocument from '@/composables/getDocument'
+import getDocument from '@/composables/firestore/getDocument'
 import ContactBuddy from '@/components/requests/ContactBuddy'
 import { ref } from '@vue/reactivity'
 

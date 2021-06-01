@@ -2,7 +2,13 @@
   <form @submit.prevent="handleSubmit" class="card">
     <h3>Login</h3>
     <input type="email" required placeholder="Email" v-model="email" />
-    <input type="password" required placeholder="Password" v-model="password" />
+    <input
+      type="password"
+      required
+      placeholder="Password"
+      v-model="password"
+      autocomplete="on"
+    />
     <div v-if="error" class="error">{{ error }}</div>
     <base-button v-if="!isPending">Login</base-button>
     <base-button v-else disabled>Loading</base-button>
@@ -12,7 +18,7 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import useLogin from '@/composables/useLogin'
+import useLogin from '@/composables/auth/useLogin'
 
 export default {
   setup() {

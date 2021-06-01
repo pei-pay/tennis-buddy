@@ -91,8 +91,10 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import getDocument from '@/composables/getDocument'
-import useDocument from '@/composables/useDocument'
+import getDocument from '@/composables/firestore/getDocument'
+import useDocument from '@/composables/firestore/useDocument'
+import getUser from '@/composables/auth/getUser'
+import useUser from '@/composables/auth/useUser'
 
 export default {
   props: ['id'],
@@ -100,6 +102,8 @@ export default {
     const router = useRouter()
     const { document, error: loadError } = getDocument('buddies', props.id)
     const { updateDoc, error: updateError, isPending } = useDocument('buddies')
+    // const { user } = getUser()
+    // const { updateUser } = useUser()
 
     const handleSubmit = async () => {
       await updateDoc(props.id, {
@@ -108,6 +112,9 @@ export default {
         level: document.value.level,
         times: document.value.times,
       })
+      // if (user.value.displayName != document.value.userName) {
+      //   await updateUser(document.value.userName)
+      // }
       if (!updateError.value) {
         router.push({ name: 'UserBuddy' })
       }

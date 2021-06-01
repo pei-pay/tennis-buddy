@@ -1,29 +1,37 @@
 <template>
   <div class="home">
     <div v-if="error" class="error">{{ error }}</div>
-    <div v-if="buddies" class="layout">
-      <div>
-        <BuddyItem
-          v-for="bud in timeFilteredBuddies"
-          :key="bud.id"
-          :id="bud.id"
-          :name="bud.userName"
-          :level="bud.level"
-          :times="bud.times"
-        />
+    <div class="layout" v-if="levelFilteredBuddies">
+      <div v-if="!levelFilteredBuddies.length == 0">
+        <transition-group name="list">
+          <BuddyItem
+            v-for="bud in levelFilteredBuddies"
+            :key="bud.id"
+            :id="bud.id"
+            :name="bud.userName"
+            :level="bud.level"
+            :times="bud.times"
+          />
+        </transition-group>
       </div>
-      <BuddyFilter @change-time-filter="setTimeFilters" />
+      <div v-else>
+        No Buddies Found
+      </div>
+      <BuddyFilter
+        @change-time-filter="setTimeFilters"
+        @change-level-filter="setLevelFilters"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import getCollection from '@/composables/getCollection'
-import getUser from '@/composables/getUser'
+import getCollection from '@/composables/firestore/getCollection'
+import getUser from '@/composables/auth/getUser'
 
 import BuddyItem from '@/components/buddies/BuddyItem.vue'
 import BuddyFilter from '@/components/buddies/BuddyFilter.vue'
-import { computed, reactive, watch } from '@vue/runtime-core'
+import { computed, ref } from '@vue/runtime-core'
 
 export default {
   name: 'Home',
@@ -40,37 +48,77 @@ export default {
       }
     })
 
-    const activeTimeFilters = reactive({
-      morning: false,
-      evening: false,
-      night: false,
-    })
+    //time filter
+
+    // const activeTimeFilters = reactive({
+    //   morning: false,
+    //   evening: false,
+    //   night: false,
+    // })
+    // computedは基本ネストしたObjectの値までは検知しない為、プリミティブを使用
+    const morning = ref(false)
+    const evening = ref(false)
+    const night = ref(false)
 
     const setTimeFilters = (updatedTimeFilters) => {
-      activeTimeFilters.value = updatedTimeFilters
-      console.log(activeTimeFilters.value)
+      morning.value = updatedTimeFilters.morning
+      evening.value = updatedTimeFilters.evening
+      night.value = updatedTimeFilters.night
     }
 
     const timeFilteredBuddies = computed(() => {
+      if (!morning.value && !evening.value && !night.value) {
+        return filteredBuddies.value
+      }
       return filteredBuddies.value.filter((bud) => {
-        if (activeTimeFilters.morning && !bud.times.includes('morning')) {
-          return false
+        if (morning.value && bud.times.includes('morning')) {
+          return true
         }
-        if (activeTimeFilters.evening && !bud.times.includes('evening')) {
-          return false
+        if (evening.value && bud.times.includes('evening')) {
+          return true
         }
-        if (activeTimeFilters.night && !bud.times.includes('night')) {
-          return false
+        if (night.value && bud.times.includes('night')) {
+          return true
         }
-        return true
+        return false
       })
     })
 
-    // watch(activeTimeFilters, () => {
-    //   //ここにtimeFilteredBuddiesの代わりとなるものをfunctionでかく必要あり
-    // })
+    //level Filter
+    const beginner = ref(false)
+    const intermediate = ref(false)
+    const advanced = ref(false)
 
-    return { error, buddies, timeFilteredBuddies, setTimeFilters }
+    const setLevelFilters = (updatedLevelChecked) => {
+      beginner.value = updatedLevelChecked.beginner
+      intermediate.value = updatedLevelChecked.intermediate
+      advanced.value = updatedLevelChecked.advanced
+    }
+
+    const levelFilteredBuddies = computed(() => {
+      if (!beginner.value && !intermediate.value && !advanced.value) {
+        return timeFilteredBuddies.value
+      }
+      return timeFilteredBuddies.value.filter((bud) => {
+        if (beginner.value && bud.level == 'beginner') {
+          return true
+        }
+        if (intermediate.value && bud.level == 'intermediate') {
+          return true
+        }
+        if (advanced.value && bud.level == 'advanced') {
+          return true
+        }
+        return false
+      })
+    })
+
+    return {
+      error,
+      setTimeFilters,
+      setLevelFilters,
+      levelFilteredBuddies,
+    }
   },
 }
 </script>
@@ -80,5 +128,28 @@ export default {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
+}
+
+.list-move {
+  transition: transform 0.8s ease;
+}
+.list-enter-from {
+  opacity: 0;
+}
+.list-leave-to {
+  opacity: 0;
+}
+
+.list-enter-active {
+  transition: all 0.5s ease-out;
+}
+.list-leave-active {
+  transition: all 0.5s ease-in;
+  position: absolute;
+}
+
+.list-enter-to,
+.list-leave-from {
+  opacity: 1;
 }
 </style>

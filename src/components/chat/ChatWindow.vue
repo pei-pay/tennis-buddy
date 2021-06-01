@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import getCollection from '@/composables/getCollection'
+import getCollection from '@/composables/firestore/getCollection'
 import { formatDistanceToNow } from 'date-fns'
 import { computed, onUpdated, ref } from '@vue/runtime-core'
 
