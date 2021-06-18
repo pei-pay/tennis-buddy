@@ -2,7 +2,7 @@
   <div class="home">
     <div v-if="error" class="error">{{ error }}</div>
     <div class="layout" v-if="levelFilteredBuddies">
-      <div v-if="!levelFilteredBuddies.length == 0">
+      <div v-if="levelFilteredBuddies.length != 0">
         <transition-group name="list">
           <BuddyItem
             v-for="bud in levelFilteredBuddies"
