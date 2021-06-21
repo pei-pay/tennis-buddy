@@ -102,8 +102,8 @@ export default {
     const router = useRouter()
     const { document, error: loadError } = getDocument('buddies', props.id)
     const { updateDoc, error: updateError, isPending } = useDocument('buddies')
-    // const { user } = getUser()
-    // const { updateUser } = useUser()
+    const { user } = getUser()
+    const { updateUser } = useUser()
 
     const handleSubmit = async () => {
       await updateDoc(props.id, {
@@ -112,9 +112,9 @@ export default {
         level: document.value.level,
         times: document.value.times,
       })
-      // if (user.value.displayName != document.value.userName) {
-      //   await updateUser(document.value.userName)
-      // }
+      if (user.value.displayName != document.value.userName) {
+        await updateUser(document.value.userName)
+      }
       if (!updateError.value) {
         router.push({ name: 'UserBuddy' })
       }
