@@ -4,7 +4,7 @@ service cloud.firestore {
     match /buddies/{buddyId} {
       allow read: if true;
       allow create: if request.auth != null;
-      allow update, delete: if request.auth.uid == resource.data.buddyUserId
+      allow update, delete: if request.auth.uid == resource.data.userId
     }
     match /requests/{requestId} {
       allow create: if true;
